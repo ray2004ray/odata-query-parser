@@ -239,19 +239,21 @@ class OdataQueryParser {
 
 			preg_match("/([\w]+)\s*(eq|ne|gt|ge|lt|le|in)\s*([\w',\(\)\s.]+)/", $and, $items);
 
-			$left = $items[1];
-			$operator = static::getFilterOperatorName($items[2]);
-			$right = static::getFilterRightValue($operator, $items[3]);
+			if(isset($items[1])){
+				$left = $items[1];
+				$operator = static::getFilterOperatorName($items[2]);
+				$right = static::getFilterRightValue($operator, $items[3]);
 
-			/**
-			 * @todo check whether [1], [2] and [3] are set
-			 */
+				/**
+				 * @todo check whether [1], [2] and [3] are set
+				 */
 
-			return [
-				"left" => $left,
-				"operator" => $operator,
-				"right" => $right
-			];
+				return [
+					"left" => $left,
+					"operator" => $operator,
+					"right" => $right
+				];
+			}
 		}, explode("and", static::$queryStrings[static::$filterKey]));
 	}
 
